@@ -1,11 +1,16 @@
 "use client"
 
-import { useState } from "react"
-import { login } from "../lib/data"; 
+import { useContext, useState } from "react"
+import { login } from "../lib/data";
+import Cookies from 'js-cookie';
+import { useRouter } from "next/navigation";
+import { AuthContext, useAuth } from "../lib/AuthContext";
+
 
 export default function LoginForm() {
 
-    
+    const { setCookie } = useContext(AuthContext);
+    const router = useRouter();
 
     const [formData, setFormData] = useState({});
 
@@ -21,7 +26,12 @@ export default function LoginForm() {
     const onSingIn = async () => {
         const resLogin = await login(formData);
         console.log(resLogin)
+        if (resLogin.token) {
+            setCookie(resLogin.token)
+            router.push('/')
+        }
     }
+
 
     return (
         <div className="w-full mx-auto bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
