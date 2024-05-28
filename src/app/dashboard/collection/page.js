@@ -2,7 +2,7 @@ import ProductCard from "../../components/ProductCard";
 import { getProducts } from "../../lib/data"
 
 
-export default async function Colection () {
+export default async function Collection () {
 
 
     const products = await getProducts();
