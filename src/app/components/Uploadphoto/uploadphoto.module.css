@@ -1,0 +1,65 @@
+/* Contenedor principal para los inputs */
+.__div_inputs_foto {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem; /* Añade un espacio entre los elementos */
+}
+
+/* Contenedor de cada foto */
+.__div_foto {
+    width: 128px;
+    height: 128px;
+    border-radius: 0.5rem; /* Bordes redondeados al estilo Flowbite */
+    overflow: hidden; /* Asegura que la imagen no se desborde */
+    border: 2px solid #e2e8f0; /* Color de borde más suave */
+    background-color: #f9fafb; /* Fondo más claro */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* Posicionamiento para elementos internos */
+}
+
+/* Estilo para las imágenes dentro de cada contenedor */
+.__div_foto > img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra el espacio disponible */
+}
+
+/* Etiqueta para cada foto (usada como botón de subida) */
+.__label_foto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute; /* Coloca la etiqueta sobre la imagen */
+    inset: 0; /* Ajusta la etiqueta al tamaño del contenedor */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparente para mejor visibilidad */
+    color: #f9fafb;
+    font-weight: 500; /* Fuente más gruesa */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Transición suave al interactuar */
+}
+
+/* Hover y focus styles para la etiqueta */
+.__label_foto:hover, .__label_foto:focus {
+    background-color: rgba(0, 0, 0, 0.75); /* Oscurece al pasar el mouse o enfocar */
+}
+
+/* Contenedor para el área de subida de archivos */
+.__contenedorAiPlus {
+    display: flex;
+    justify-content: center;
+    padding-top: 2rem; /* Más espacio en la parte superior */
+}
+
+/* Estilo para el botón de subida (si es visible) */
+.__upload {
+    margin-top: 1rem;
+   
+}
+
+/* Estilo del input de archivo, oculto por defecto */
+.__input {
+    display: none;
+}
