@@ -26,7 +26,8 @@ const fetchApiData = async (url, method = "GET", body = null, token = null) => {
       return Promise.reject(response.status);
     }
     const payload = await response.json();
-    return payload;
+    console.log(payload)
+    return (payload);
   } catch (error) {
     return error;
   }
@@ -39,8 +40,6 @@ export  async function getCategories () {
     return resCategories;
 }
 
-<<<<<<< HEAD
-=======
 export  async function getSizes () {
   const url = process.env.NEXT_PUBLIC_API_URL +  "sizes/all";
   const resSizes = fetchApiData(url);
@@ -54,7 +53,6 @@ export  async function getColors () {
 }
 
 
->>>>>>> main
 export  async function getProductsBySubcategory (id) {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/getBySubCategory/" + id;
     return fetchApiData(url);
@@ -90,14 +88,11 @@ export  async function getProductsBySubcategory (id) {
     return fetchApiData(url);
   };
 
-<<<<<<< HEAD
-=======
   export  async function getProductsStock () {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/allStock";
     return fetchApiData(url);
   };
 
->>>>>>> main
 
   export  async function getSubcategories () {
     const url = process.env.NEXT_PUBLIC_API_URL + "subcategories/all";
@@ -110,11 +105,6 @@ export  async function getProductsBySubcategory (id) {
      password: formData.password
      }
      const url = process.env.NEXT_PUBLIC_API_URL +  "login";
-<<<<<<< HEAD
-   return fetchApiData(url, "POST",body);
- }
-
-=======
    return fetchApiData(url, "POST", body);
  }
 
@@ -136,11 +126,10 @@ export  async function getProductsBySubcategory (id) {
  return fetchApiData(url, "POST", body, token);
 }
 
-export  async function stockCreate ( formData ) {
+export  async function stockCreate ( formData, token ) {
   const body = formData;
    const url = process.env.NEXT_PUBLIC_API_URL +  "stock/create";
- return fetchApiData(url, "POST", body);
+ return fetchApiData(url, "POST", body, token);
 }
 
  
->>>>>>> main
