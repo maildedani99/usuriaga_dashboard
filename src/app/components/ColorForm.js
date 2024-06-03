@@ -1,14 +1,19 @@
 "use client";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../lib/AuthContext";
+import { colorCreate } from "../lib/data";
 
 export default function ColorForm() {
+  const router = useRouter();
+  const { auth } = useContext(AuthContext);
 
-  const router = useRouter()
+
   const [formData, setFormData] = useState({
     name: "",
     color: "",
   });
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -18,10 +23,15 @@ export default function ColorForm() {
     }));
   };
 
+  useEffect(() => {
+    const { name, color } = formData;
+    setIsFormValid(name.trim() !== "" && color.trim() !== "");
+  }, [formData]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí puedes enviar los datos al backend o realizar cualquier otra acción
-    console.log(formData);
+    const resColor = colorCreate(formData, auth.token);
+    console.log(resColor)
     // Resetear el formulario después de enviar los datos si es necesario
     setFormData({
       name: "",
@@ -58,13 +68,14 @@ export default function ColorForm() {
         <button
           type="submit"
           className="inline-flex items-center px-8 py-2.5 mt-4 sm:mt-6 text-md font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800 mx-auto"
+          disabled={!isFormValid}
         >
           Agregar
         </button>
         <button
-          type="submit"
+          type="button"
           className="inline-flex items-center px-8 py-2.5 mt-4 sm:mt-6 text-md font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 dark:focus:ring-primary-900 hover:bg-primary-800 mx-auto"
-          onClick={()=>router.back()}
+          onClick={() => router.back()}
         >
           Cancelar
         </button>

@@ -132,4 +132,10 @@ export  async function stockCreate ( formData, token ) {
  return fetchApiData(url, "POST", body, token);
 }
 
+
+export  async function colorCreate ( formData, token ) {
+  const body = formData;
+   const url = process.env.NEXT_PUBLIC_API_URL +  "colors/create";
+ return fetchApiData(url, "POST", body, token);
+}
  
