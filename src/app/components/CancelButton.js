@@ -1,6 +1,13 @@
+import { useRouter } from "next/navigation"
 
 
-export default function CancelButton ( { onClick, text} ) {
+export default function CancelButton ( { text } ) {
+
+  const router = useRouter()
+
+  const onClick = () => {
+    router.back();
+  }
 
     return (
         <button

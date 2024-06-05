@@ -12,16 +12,17 @@ export const metadata = {
   description: 'Dashboard Usuriaga collection',
 }
 
-export default function RootLayout({ children, forms }) {
+export default function RootLayout({ children, forms, alert }) {
   return (
     <html lang="es">
       <body className={'relative ' + inter.className}>
         <AuthProvider>
           <AppProvider>
             <UploadPhotoProvider>
-              <Navbar />
-              {children}
-              {forms}
+                <Navbar />
+                {children}
+                {forms}
+                {alert}
             </UploadPhotoProvider>
           </AppProvider>
         </AuthProvider>

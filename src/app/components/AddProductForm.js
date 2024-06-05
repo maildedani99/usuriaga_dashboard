@@ -8,11 +8,11 @@ import UploadPhoto from "./Uploadphoto/UploadPhoto";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createProduct } from "../lib/data";
-import AceptButton from "./AceptButton";
 import CancelButton from "./CancelButton";
+import AcceptButton from "./AceptButton";
 
 export default function AddProductForm() {
-  const { uploadPhotoArray } = useContext(UploadPhotoContext);
+  const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
   const { subcategories } = useContext(AppContext);
   const { auth } = useContext(AuthContext);
 
@@ -55,10 +55,21 @@ export default function AddProductForm() {
   };
 
   const onCreateProduct = async () => {
-    const checkedListArray = selectTrue();
-    const resCreateProduct = await createProduct(data, checkedListArray, uploadPhotoArray, auth.token);
-    console.log(resCreateProduct.status)
+    try {
+      const checkedListArray = selectTrue();
+      const resCreateProduct = await createProduct(data, checkedListArray, uploadPhotoArray, auth.token);
+      if (resCreateProduct.success) {
+        setUploadPhotoArray([])
+        setData(initialState)
+        router.push(`/alert?messageId=alert_product_succes`);
+      } else {
+        router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });
+      }
+    } catch (error) {
+      console.error('Error en la solicitud:', error);
+    }
    
+
   };
 
   return (
@@ -170,10 +181,15 @@ export default function AddProductForm() {
         </div>
       </div>
       <div className="flex w-full mt-4">
-        <AceptButton onClick={onCreateProduct} text="Añadir producto"/>
-         
-        <CancelButton  onClick={onReturn} text="Cancelar"/>
-        
+        <button
+          onClick={onCreateProduct}
+          type="btn"
+          className="inline-flex items-center px-8 py-2.5 mt-4 sm:mt-6 text-md font-medium text-center text-white rounded-lg focus:ring-4 mx-auto bg-primary-700 hover:bg-primary-800 focus:ring-primary-200 dark:focus:ring-primary-900"
+        >
+          Añadir producto
+        </button>
+        <CancelButton onClick={onReturn} text="Cancelar" />
+
       </div>
       {statusMessage && <p className="text-center mt-4">{statusMessage}</p>}
     </div>

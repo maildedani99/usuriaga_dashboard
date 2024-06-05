@@ -1,0 +1,20 @@
+
+{
+  "alert_color_succes": {
+    "message": "El color se ha creado con eéxito",
+    "type": "success"
+  },
+    "alert_color_error": {
+      "message": "Algo ha salido mal a crear el color",
+      "type": "error"
+    },
+    "alert_product_succes": {
+      "message": "El producto se ha creado con éxito",
+      "type": "success"
+    },
+    "alert_product_error": {
+      "message": "Algo ha salido mal a crear el producto",
+      "type": "error"
+    }
+  }
+  

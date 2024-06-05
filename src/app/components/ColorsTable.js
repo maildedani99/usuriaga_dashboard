@@ -8,8 +8,12 @@ export default async function ColorsTable() {
 
   return (
     <div>
-     
+      <div className="flex justify-end mb-4 ">
+        <Link href="/addColor" className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300">
 
+          Añadir Nuevo
+        </Link>
+      </div>
       <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
@@ -40,24 +44,18 @@ export default async function ColorsTable() {
                 <td className="px-6 py-4 text-center">{color.color}</td>
                 <td className="px-6 py-4 text-center">
                   <Link href="">
-                      <CiEdit color="black" className="mx-auto" />
+                    <CiEdit color="black" className="mx-auto" />
                   </Link>
                 </td>
                 <td className="px-6 py-4 text-center">
                   <Link href="">
-                      <RiDeleteBin6Line className="mx-auto" />
+                    <RiDeleteBin6Line className="mx-auto" />
                   </Link>
                 </td>
               </tr>
             ))}
         </tbody>
       </table>
-      <div className="flex justify-end mt-4">
-        <Link href="/addColor" className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300">
-        
-            Añadir Nuevo
-        </Link>
-      </div>
     </div>
   );
 }

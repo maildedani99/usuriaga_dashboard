@@ -26,7 +26,6 @@ const fetchApiData = async (url, method = "GET", body = null, token = null) => {
       return Promise.reject(response.status);
     }
     const payload = await response.json();
-    console.log(payload)
     return (payload);
   } catch (error) {
     return error;
