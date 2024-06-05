@@ -46,9 +46,7 @@ export default function ColorForm() {
 
   return (
     <div className="grid gap-4 px-4 w-full mx-auto md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-      <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-        Agregar Nuevo Color
-      </h2>
+     
       <form onSubmit={handleSubmit}>
         <div>
           <label
@@ -69,7 +67,7 @@ export default function ColorForm() {
         <div>
           <label
             htmlFor="color"
-            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white mt-4"
           >
             Color:
           </label>
@@ -82,11 +80,12 @@ export default function ColorForm() {
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full h-10 p-0.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
           />
         </div>
-        <div className="flex w-full">
+        <div className="flex w-full mt-10">
           <AcceptButton
             message="Aceptar"
             isDisabled={!isFormValid}
           />
+          <div className="w-10"></div>
           <CancelButton text="Cancelar" />
         </div>
       </form>

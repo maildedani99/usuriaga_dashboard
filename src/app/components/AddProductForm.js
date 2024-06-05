@@ -62,10 +62,9 @@ export default function AddProductForm() {
         setUploadPhotoArray([])
         setData(initialState)
         router.push(`/alert?messageId=alert_product_succes`);
-      } else {
-        router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });
       }
     } catch (error) {
+      router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });
       console.error('Error en la solicitud:', error);
     }
    
