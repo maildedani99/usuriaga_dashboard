@@ -5,10 +5,12 @@ import { AuthContext } from "../lib/AuthContext";
 import { colorCreate } from "../lib/data";
 import CancelButton from "./CancelButton";
 import AcceptButton from "./AceptButton";
+import { AppContext } from "../lib/AppContext";
 
 export default function ColorForm() {
   const router = useRouter();
   const { auth } = useContext(AuthContext);
+  const { loadColors } = useContext(AppContext)
 
   const [formData, setFormData] = useState({
     name: "",
@@ -35,6 +37,7 @@ export default function ColorForm() {
       const resColor = await colorCreate(formData, auth.token);
       console.log(resColor);
       if (resColor.success) {
+        loadColors();
         router.push(`/alert?messageId=alert_color_succes`, undefined, { scroll: false });
       } else {
         router.push(`/alert?messageId=alert_color_error`, undefined, { scroll: false });

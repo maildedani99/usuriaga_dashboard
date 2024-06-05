@@ -1,5 +1,5 @@
 "use client";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AppContext } from "../lib/AppContext";
 import { stockCreate } from "../lib/data";
 import { AuthContext } from "../lib/AuthContext";
@@ -8,6 +8,8 @@ import AddButton from "./AddButton";
 export default function StockForm() {
   const { sizes, colors, products } = useContext(AppContext);
   const { auth } = useContext(AuthContext);
+
+  //const [colors, setColors] = useState([])
 
   const initialState = {
     product_id: "",
@@ -38,6 +40,8 @@ export default function StockForm() {
     }
     console.log(resStockCreate);
   };
+
+
 
   return (
     <div className="grid gap-4 px-4 w-full mx-auto md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">

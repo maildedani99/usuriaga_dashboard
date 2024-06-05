@@ -63,25 +63,38 @@ export const AppProvider = ({ children }) => {
   
     setCartItems(updatedCartItems);
   };
+
+  const loadColors = async () => {
+    const resColors = await getColors();
+    setColors(resColors);
+  }
+
+  const loadProducts = async () => {
+    const resProducts = await getProducts()
+    setProducts(resProducts)
+  }
+
+  const loadSizes = async () => {
+    const resSizes = await getSizes();
+    setSizes(resSizes);
+  }
+
+  const loadSubcategories = async () => {
+    const resSubcategories = await getSubcategories();
+    setSubcategories(resSubcategories);
+  }
   
 
   useEffect(() => {
-    const getData = async () => {
-      const resColors = await getColors();
-      const resSizes = await getSizes();
-      const resProducts = await getProducts()
-      const resSubcategories = await getSubcategories();
-      setColors(resColors);
-      setSizes(resSizes);
-      setSubcategories(resSubcategories);
-      setProducts(resProducts)
-    }
-    getData()
+    loadColors();
+    loadProducts();
+    loadSizes();
+    loadSubcategories()
   }, [])
 
   return (
     <AppContext.Provider
-      value={{ cartItems, addItemToCart, removeItemFromCart, addQuantity, sizeSelectedOption, setSizeSelectedOption, removeQuantity, searchBarIsOpen, setSearchBarIsOpen, searchTerm, setSearchTerm, colors, sizes, colorSelectedOption, setColorSelectedOption, formData, setFormData, order, setOrder, redsysData, setRedsysData, orderItems, setOrderItems, subcategories, products }}
+      value={{ cartItems, addItemToCart, removeItemFromCart, addQuantity, sizeSelectedOption, setSizeSelectedOption, removeQuantity, searchBarIsOpen, setSearchBarIsOpen, searchTerm, setSearchTerm, colors, sizes, colorSelectedOption, setColorSelectedOption, formData, setFormData, order, setOrder, redsysData, setRedsysData, orderItems, setOrderItems, subcategories, products,  loadColors, loadProducts, loadSizes, loadSubcategories}}
     >
       {children}
     </AppContext.Provider>
