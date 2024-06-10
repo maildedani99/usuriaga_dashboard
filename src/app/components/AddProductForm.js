@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { UploadPhotoContext } from "../lib/UploadPhotoContext";
 import { AppContext } from "../lib/AppContext";
 import { AuthContext } from "../lib/AuthContext";
@@ -67,9 +67,12 @@ export default function AddProductForm() {
       router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });
       console.error('Error en la solicitud:', error);
     }
-   
-
   };
+
+useEffect(()=> {
+  console.log(uploadPhotoArray)
+},[uploadPhotoArray])
+
 
   return (
     <div>

@@ -15,7 +15,7 @@ export default function ProductCard({ product }) {
           </span>
         )}
         <ClientImage
-          src={product.images[0].url && product.images[0].url}
+          src={product?.images[0]?.url && product?.images[0]?.url}
           width={300}
           height={450}
           alt="foto"

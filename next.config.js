@@ -2,12 +2,20 @@
 const nextConfig = {
   reactStrictMode: false,
   images: {
-    remotePatterns: [
+    domains: ['res.cloudinary.com'],
+  },
+  async headers() {
+    return [
       {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
+        source: '/:path*', // Aplicar a todas las rutas
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, max-age=0', // Deshabilitar caché
+          },
+        ],
       },
-    ],
+    ];
   },
 };
 

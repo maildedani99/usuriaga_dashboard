@@ -9,7 +9,6 @@ const fetchApiData = async (url, method = "GET", body = null, token = null) => {
   // Añadir condicionalmente el token Bearer solo si el token está presente
   if (token) {
     headers.append("Authorization", `Bearer ${token}`);
-    console.log("Enviando token: ", `Bearer ${token}`);  // Puedes comentar o eliminar esta línea después de la depuración
   }
 
   const options = {
@@ -58,7 +57,12 @@ export  async function getProductsBySubcategory (id) {
   };
 
   export  async function getNovelties () {
-    const url = process.env.NEXT_PUBLIC_API_URL + "products/novelties/all";
+    const url = process.env.NEXT_PUBLIC_API_URL + "novelties/all";
+    return fetchApiData(url);
+  };
+
+  export  async function getOutlets () {
+    const url = process.env.NEXT_PUBLIC_API_URL + "outlet/all";
     return fetchApiData(url);
   };
 
@@ -125,6 +129,25 @@ export  async function getProductsBySubcategory (id) {
  return fetchApiData(url, "POST", body, token);
 }
 
+export  async function updateProduct (data, checkedListArray, uploadPhotoArray, token, id) {
+  console.log(token)
+  const body = {
+    name: data.name,
+    description: data.description,  
+    price: data.price,
+    subcategory_id: data.subcategory_id,
+    images: uploadPhotoArray,
+    novelty: data.novelty ? data.novelty : false,
+    sizes: checkedListArray,
+    outlet: data.outlet ? data.outlet : false,
+    discount: data.discount ? data.discount : false,
+    reduced_price: data.reduced_price ? data.reduced_price : 0,
+    product_id:id
+  };
+   const url = process.env.NEXT_PUBLIC_API_URL +  "products/update";
+ return fetchApiData(url, "POST", body, token);
+}
+
 export  async function stockCreate ( formData, token ) {
   const body = formData;
    const url = process.env.NEXT_PUBLIC_API_URL +  "stock/create";
@@ -137,4 +160,5 @@ export  async function colorCreate ( formData, token ) {
    const url = process.env.NEXT_PUBLIC_API_URL +  "colors/create";
  return fetchApiData(url, "POST", body, token);
 }
- 
+
+

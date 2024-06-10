@@ -1,7 +1,7 @@
 "use client"
 
 import React, { createContext, useEffect, useState } from "react";
-import { getColors, getSizes, getSubcategories, getProducts } from "./data";
+import { getColors, getSizes, getSubcategories, getProducts, getNovelties, getOutlets } from "./data";
 
 export const AppContext = createContext();
 
@@ -18,7 +18,10 @@ export const AppProvider = ({ children }) => {
   const [redsysData, setRedsysData] = useState({});
   const [orderItems, setOrderItems] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState([]);
+  const [novelties, setNovelties] = useState([]);
+  const [outlets, setOutlets] = useState([]);
+
 
   
 
@@ -83,6 +86,16 @@ export const AppProvider = ({ children }) => {
     const resSubcategories = await getSubcategories();
     setSubcategories(resSubcategories);
   }
+
+  const loadNovelties = async () => {
+    const resNovelties = await getNovelties();
+    setNovelties(resNovelties);
+  }
+
+  const loadOutlets = async () => {
+    const resOutlets = await getOutlets();
+    setOutlets(resOutlets);
+  }
   
 
   useEffect(() => {
@@ -90,11 +103,13 @@ export const AppProvider = ({ children }) => {
     loadProducts();
     loadSizes();
     loadSubcategories()
+    loadNovelties();
+    loadOutlets();
   }, [])
 
   return (
     <AppContext.Provider
-      value={{ cartItems, addItemToCart, removeItemFromCart, addQuantity, sizeSelectedOption, setSizeSelectedOption, removeQuantity, searchBarIsOpen, setSearchBarIsOpen, searchTerm, setSearchTerm, colors, sizes, colorSelectedOption, setColorSelectedOption, formData, setFormData, order, setOrder, redsysData, setRedsysData, orderItems, setOrderItems, subcategories, products,  loadColors, loadProducts, loadSizes, loadSubcategories}}
+      value={{ cartItems, addItemToCart, removeItemFromCart, addQuantity, sizeSelectedOption, setSizeSelectedOption, removeQuantity, searchBarIsOpen, setSearchBarIsOpen, searchTerm, setSearchTerm, colors, sizes, colorSelectedOption, setColorSelectedOption, formData, setFormData, order, setOrder, redsysData, setRedsysData, orderItems, setOrderItems, subcategories, products,  loadColors, loadProducts, loadSizes, loadSubcategories, novelties, outlets}}
     >
       {children}
     </AppContext.Provider>

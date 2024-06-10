@@ -55,7 +55,7 @@ export default function ProductsTable ({ products }) {
                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                 >
                   <ClientImage
-                    src={product.images[0].url}
+                    src={product?.images[0]?.url}
                     width={50}
                     height={100}
                     alt="imagen del producto"
@@ -71,7 +71,7 @@ export default function ProductsTable ({ products }) {
                 <td className="px-6 py-4 text-center">{product.reduced_price}</td>
                 <td className="px-6 py-4 text-center">{product.subcategory}</td>
                 <td className="px-6 py-4 text-center">
-                  <Link href="">
+                  <Link href={`/editProduct/${product.id}`}>
                     <CiEdit color="black" className="mx-auto" />
                   </Link>
                 </td>
