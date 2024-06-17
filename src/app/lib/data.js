@@ -34,72 +34,70 @@ const fetchApiData = async (url, method = "GET", body = null, token = null) => {
 
 export  async function getCategories () {
     const url = process.env.NEXT_PUBLIC_API_URL +  "categories/all";
-    const resCategories = fetchApiData(url);
-    return resCategories;
+    const resCategories =  fetchApiData(url);
+    return await fetchApiData(url);
 }
 
 export  async function getSizes () {
   const url = process.env.NEXT_PUBLIC_API_URL +  "sizes/all";
-  const resSizes = fetchApiData(url);
-  return resSizes;
+  return await fetchApiData(url);
 }
 
 export  async function getColors () {
   const url = process.env.NEXT_PUBLIC_API_URL +  "colors/all";
-  const resColors = fetchApiData(url);
-  return resColors;
+  return  await fetchApiData(url);
 }
 
 
 export  async function getProductsBySubcategory (id) {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/getBySubCategory/" + id;
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getNovelties () {
     const url = process.env.NEXT_PUBLIC_API_URL + "novelties/all";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getOutlets () {
     const url = process.env.NEXT_PUBLIC_API_URL + "outlet/all";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getDiscounts () {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/discounts/all";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getOutletProducts () {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/outlet/all";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getSubcategory (id) {
     const url = process.env.NEXT_PUBLIC_API_URL + "subcategories/getById/" + id;
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getProductById (id) {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/" + id;
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getProducts () {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/all";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function getProductsStock () {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/allStock";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
 
   export  async function getSubcategories () {
     const url = process.env.NEXT_PUBLIC_API_URL + "subcategories/all";
-    return fetchApiData(url);
+    return await fetchApiData(url);
   };
 
   export  async function login ( formData ) {
@@ -126,7 +124,7 @@ export  async function getProductsBySubcategory (id) {
     reduced_price: data.reduced_price ? data.reduced_price : 0,
   };
    const url = process.env.NEXT_PUBLIC_API_URL +  "products/create";
- return fetchApiData(url, "POST", body, token);
+ return await fetchApiData(url, "POST", body, token);
 }
 
 export  async function updateProduct (data, checkedListArray, uploadPhotoArray, token, id) {
@@ -145,20 +143,20 @@ export  async function updateProduct (data, checkedListArray, uploadPhotoArray, 
     product_id:id
   };
    const url = process.env.NEXT_PUBLIC_API_URL +  "products/update";
- return fetchApiData(url, "POST", body, token);
+ return await fetchApiData(url, "POST", body, token);
 }
 
 export  async function stockCreate ( formData, token ) {
   const body = formData;
    const url = process.env.NEXT_PUBLIC_API_URL +  "stock/create";
- return fetchApiData(url, "POST", body, token);
+ return await fetchApiData(url, "POST", body, token);
 }
 
 
 export  async function colorCreate ( formData, token ) {
   const body = formData;
    const url = process.env.NEXT_PUBLIC_API_URL +  "colors/create";
- return fetchApiData(url, "POST", body, token);
+ return await fetchApiData(url, "POST", body, token);
 }
 
 

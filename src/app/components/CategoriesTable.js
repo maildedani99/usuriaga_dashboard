@@ -6,6 +6,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 export default async function CategoriesTable() {
   const categories = await getCategories();
 
+  console.log(categories)
+
   return (
     categories &&
     <div>
@@ -28,7 +30,7 @@ export default async function CategoriesTable() {
         </thead>
         <tbody>
           {categories &&
-            categories?.map((category) => (
+            categories.map((category) => (
               <tr
                 key={category.id}
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"

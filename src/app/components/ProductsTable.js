@@ -11,6 +11,10 @@ export default async function ProductsTable() {
 
   const products = await getProducts();
 
+  if (!Array.isArray(products)) {
+    return <div>No se encontraron categorías.</div>;
+  }
+
   return (
     products &&
     <div>
