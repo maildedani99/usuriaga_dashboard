@@ -3,21 +3,24 @@ import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ClientImage from "./ClientImage";
+import { getProducts } from "../lib/data";
 
 
 
-export default function ProductsTable ({ products }) {
+export default async function ProductsTable() {
 
+  const products = await getProducts();
 
-    return (
-        <div>
- <div className="flex justify-end mt-4 mb-4">
+  return (
+    products &&
+    <div>
+      <div className="flex justify-end mt-4 mb-4">
         <Link href="/addProduct" className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300">
-        
-            Añadir Nuevo
+
+          Añadir Nuevo
         </Link>
       </div>
-        <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
         <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
             <th scope="col" className="px-6 py-3">
@@ -84,6 +87,6 @@ export default function ProductsTable ({ products }) {
             ))}
         </tbody>
       </table>
-      </div>
-    )
+    </div>
+  )
 }

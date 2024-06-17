@@ -8,9 +8,9 @@ export default async function Collection () {
     const products = await getProducts();
 
     return (
-        <>
+        
        
-        {products && products.length > 0 ? (
+        products && products.length > 0 ? (
           <div className="container grid grid-cols-2 xl:grid-cols-4 md:grid-cols-3 text-5xl justify-center w-full tracking-wider  font-light text-[#515151] text-center">
             {products.map((product) => (
               <ProductCard product={product} key={product.id} />
@@ -24,7 +24,6 @@ export default async function Collection () {
               </h1>
             </div>
           </div>
-        )}
-      </>
+        )
     )
 }
