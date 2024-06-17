@@ -89,7 +89,7 @@ export default function EditProductForm({ product }) {
       const imagesArray = productImages.map((image) => image.url);
       const resUpdateProduct = await updateProduct(data, [], imagesArray, auth.token, product.id);
       if (resUpdateProduct.success) {
-        router.push(`/alert?messageId=alert_product_success`);
+        router.push(`/alert?messageId=alert_edit_product_success`);
       }
     } catch (error) {
       router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });

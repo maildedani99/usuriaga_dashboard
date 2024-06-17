@@ -15,6 +15,10 @@
     "alert_product_error": {
       "message": "Se ha producido un error al crear el producto",
       "type": "error"
+    },
+    "alert_edit_product_success": {
+      "message": "El producto se ha actualizado con éxito",
+      "type": "success"
     }
   }
   
