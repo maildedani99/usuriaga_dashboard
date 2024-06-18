@@ -14,7 +14,7 @@ import { isNovelty, isOutlet } from "../lib/helpers";
 export default function EditProductForm({ product }) {
   const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
   const { auth } = useContext(AuthContext);
-  const { subcategories, outlets, novelties, loadProducts } = useContext(AppContext);
+  const { subcategories, outlets, novelties, loadProducts, loadNovelties, loadOutlets } = useContext(AppContext);
 
   const router = useRouter();
 
@@ -42,6 +42,14 @@ export default function EditProductForm({ product }) {
       document.body.removeChild(script);
     };
   }, []);
+
+  useEffect(() => {
+    setData((prevData) => ({
+      ...prevData,
+      novelty: isNovelty(novelties, product.id),
+      outlet: isOutlet(outlets, product.id),
+    }));
+  }, [novelties, outlets, product.id]);
 
   const handleInputChange = (event) => {
     const { name, value, type, checked } = event.target;
@@ -89,7 +97,9 @@ export default function EditProductForm({ product }) {
       const imagesArray = productImages.map((image) => image.url);
       const resUpdateProduct = await updateProduct(data, [], imagesArray, auth.token, product.id);
       if (resUpdateProduct.success) {
-        loadProducts()
+        loadProducts();
+        loadNovelties();
+        loadOutlets()
         router.push(`/alert?messageId=alert_edit_product_success`);
       }
     } catch (error) {
@@ -100,9 +110,7 @@ export default function EditProductForm({ product }) {
 
   return (
     <div>
-      <div className="flex text-5xl justify-center w-full tracking-wider capitalize font-light text-[#515151] text-center">
-        <span>{data.name}</span>
-      </div>
+     
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 px-8">
         <div className="sm:col-span-2">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
