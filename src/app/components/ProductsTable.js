@@ -1,19 +1,18 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ClientImage from "./ClientImage";
 import { getProducts } from "../lib/data";
+import { useContext } from "react";
+import { AppContext } from "../lib/AppContext";
 
 
 
-export default async function ProductsTable() {
+export default function ProductsTable() {
 
-  const products = await getProducts();
-
-  if (!Array.isArray(products)) {
-    return <div>No se encontraron categorías.</div>;
-  }
+  const { products } = useContext(AppContext);
 
   return (
     products &&

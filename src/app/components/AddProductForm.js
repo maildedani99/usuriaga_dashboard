@@ -13,7 +13,7 @@ import AcceptButton from "./AceptButton";
 
 export default function AddProductForm() {
   const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
-  const { subcategories } = useContext(AppContext);
+  const { subcategories, loadProducts } = useContext(AppContext);
   const { auth } = useContext(AuthContext);
 
   const router = useRouter()
@@ -59,12 +59,13 @@ export default function AddProductForm() {
       const checkedListArray = selectTrue();
       const resCreateProduct = await createProduct(data, checkedListArray, uploadPhotoArray, auth.token);
       if (resCreateProduct.success) {
+        loadProducts()
         setUploadPhotoArray([])
         setData(initialState)
-        router.push(`/alert?messageId=alert_product_succes`);
+        router.push(`/alert?messageId=alert_create_product_success`);
       }
     } catch (error) {
-      router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });
+      router.push(`/alert?messageId=alert_create_product_error`, undefined, { scroll: false });
       console.error('Error en la solicitud:', error);
     }
   };

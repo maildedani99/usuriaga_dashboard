@@ -38,7 +38,7 @@ export default function ColorForm() {
       console.log(resColor);
       if (resColor.success) {
         loadColors();
-        router.push(`/alert?messageId=alert_color_succes`, undefined, { scroll: false });
+        router.push(`/alert?messageId=alert_color_success`, undefined, { scroll: false });
       } else {
         router.push(`/alert?messageId=alert_color_error`, undefined, { scroll: false });
       }

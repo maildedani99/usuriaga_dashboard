@@ -14,7 +14,7 @@ import { isNovelty, isOutlet } from "../lib/helpers";
 export default function EditProductForm({ product }) {
   const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
   const { auth } = useContext(AuthContext);
-  const { subcategories, outlets, novelties } = useContext(AppContext);
+  const { subcategories, outlets, novelties, loadProducts } = useContext(AppContext);
 
   const router = useRouter();
 
@@ -89,10 +89,11 @@ export default function EditProductForm({ product }) {
       const imagesArray = productImages.map((image) => image.url);
       const resUpdateProduct = await updateProduct(data, [], imagesArray, auth.token, product.id);
       if (resUpdateProduct.success) {
+        loadProducts()
         router.push(`/alert?messageId=alert_edit_product_success`);
       }
     } catch (error) {
-      router.push(`/alert?messageId=alert_product_error`, undefined, { scroll: false });
+      router.push(`/alert?messageId=alert_edit_product_error`, undefined, { scroll: false });
       console.error("Error en la solicitud:", error);
     }
   };

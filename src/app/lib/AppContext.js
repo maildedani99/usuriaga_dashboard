@@ -1,7 +1,9 @@
 "use client"
 
+
+
 import React, { createContext, useEffect, useState } from "react";
-import { getColors, getSizes, getSubcategories, getProducts, getNovelties, getOutlets } from "./data";
+import { getAllData, getColors, getSizes, getSubcategories, getProducts, getNovelties, getOutlets } from "./data";
 
 export const AppContext = createContext();
 
@@ -14,18 +16,13 @@ export const AppProvider = ({ children }) => {
   const [colors, setColors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [formData, setFormData] = useState({});
-  const [order, setOrder] = useState({ orderAmount: 0});
+  const [order, setOrder] = useState({ orderAmount: 0 });
   const [redsysData, setRedsysData] = useState({});
   const [orderItems, setOrderItems] = useState([]);
   const [subcategories, setSubcategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [novelties, setNovelties] = useState([]);
   const [outlets, setOutlets] = useState([]);
-
-
-  
-
-
 
   const addItemToCart = (item, sizeSelectedOption, colorSelectedOption) => {
     const matchItemIndex = cartItems.findIndex(
@@ -40,20 +37,18 @@ export const AppProvider = ({ children }) => {
       setCartItems([...cartItems, newItem]);
     }
   };
-  
 
   const addQuantity = (item) => {
     const resItemMatch = cartItems.find(object => object.id === item.id & object.size.id === item.size.id);
     resItemMatch.quantity = resItemMatch.quantity + 1;
-    setCartItems([...cartItems])
-  }
+    setCartItems([...cartItems]);
+  };
 
   const removeQuantity = (item) => {
     const resItemMatch = cartItems.find(object => object.id === item.id & object.size.id === item.size.id);
     resItemMatch.quantity = resItemMatch.quantity - 1;
-    setCartItems([...cartItems])
-
-  }
+    setCartItems([...cartItems]);
+  };
 
   const removeItemFromCart = (item) => {
     const updatedCartItems = cartItems.filter((cartItem) => {
@@ -73,8 +68,8 @@ export const AppProvider = ({ children }) => {
   }
 
   const loadProducts = async () => {
-    const resProducts = await getProducts()
-    setProducts(resProducts)
+    const resProducts = await getProducts();
+    setProducts(resProducts);
   }
 
   const loadSizes = async () => {
@@ -97,21 +92,63 @@ export const AppProvider = ({ children }) => {
     setOutlets(resOutlets);
   }
   
+  const loadAllData = async () => {
+    try {
+      const result = await getAllData();
+      setColors(result.colors);
+      setSizes(result.sizes);
+      setSubcategories(result.subcategories);
+      setProducts(result.products);
+      setNovelties(result.novelties);
+      setOutlets(result.outlets);
+    } catch (error) {
+      console.error('Error fetching all data:', error);
+    }
+  };
 
   useEffect(() => {
-    loadColors();
-    loadProducts();
-    loadSizes();
-    loadSubcategories()
-    loadNovelties();
-    loadOutlets();
-  }, [])
+    loadAllData();
+  }, []);
 
   return (
     <AppContext.Provider
-      value={{ cartItems, addItemToCart, removeItemFromCart, addQuantity, sizeSelectedOption, setSizeSelectedOption, removeQuantity, searchBarIsOpen, setSearchBarIsOpen, searchTerm, setSearchTerm, colors, sizes, colorSelectedOption, setColorSelectedOption, formData, setFormData, order, setOrder, redsysData, setRedsysData, orderItems, setOrderItems, subcategories, products,  loadColors, loadProducts, loadSizes, loadSubcategories, novelties, outlets}}
+      value={{
+        cartItems,
+        addItemToCart,
+        removeItemFromCart,
+        addQuantity,
+        sizeSelectedOption,
+        setSizeSelectedOption,
+        removeQuantity,
+        searchBarIsOpen,
+        setSearchBarIsOpen,
+        searchTerm,
+        setSearchTerm,
+        colors,
+        sizes,
+        colorSelectedOption,
+        setColorSelectedOption,
+        formData,
+        setFormData,
+        order,
+        setOrder,
+        redsysData,
+        setRedsysData,
+        orderItems,
+        setOrderItems,
+        subcategories,
+        products,
+        novelties,
+        outlets,
+        loadColors,
+        loadProducts,
+        loadSizes,
+        loadSubcategories,
+        loadNovelties,
+        loadOutlets
+      }}
     >
       {children}
     </AppContext.Provider>
-  );  
+  );
 };

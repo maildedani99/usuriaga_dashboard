@@ -31,6 +31,11 @@ const fetchApiData = async (url, method = "GET", body = null, token = null) => {
   }
 };
 
+export async function getAllData() {
+  const url = process.env.NEXT_PUBLIC_API_URL + "data/all";
+  return await fetchApiData(url);
+}
+
 
 export  async function getCategories () {
     const url = process.env.NEXT_PUBLIC_API_URL +  "categories/all";

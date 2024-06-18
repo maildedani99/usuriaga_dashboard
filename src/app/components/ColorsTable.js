@@ -1,10 +1,13 @@
+"use client"
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getColors } from "../lib/data";
+import { useContext } from "react";
+import { AppContext } from "../lib/AppContext";
 
-export default async function ColorsTable() {
-  const colors = await getColors();
+export default  function ColorsTable() {
+  const {colors} = useContext(AppContext)
 
   return (
     colors &&
