@@ -113,9 +113,6 @@ export default function AddProductForm() {
 
   return (
     <div>
-      <div className="flex text-5xl justify-center w-full tracking-wider capitalize font-light text-[#515151] text-center">
-        <span>Añadir producto</span>
-      </div>
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 px-8">
         <div className="sm:col-span-2">
           <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
