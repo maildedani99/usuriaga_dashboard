@@ -13,7 +13,7 @@ import Image from "next/image";
 
 export default function AddProductForm() {
   const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
-  const { subcategories, loadProducts } = useContext(AppContext);
+  const { subcategories, loadAllData } = useContext(AppContext);
   const { auth } = useContext(AuthContext);
 
   const router = useRouter();
@@ -100,7 +100,7 @@ export default function AddProductForm() {
       const checkedListArray = selectTrue();
       const resCreateProduct = await createProduct(data, checkedListArray, uploadPhotoArray, auth.token);
       if (resCreateProduct.success) {
-        loadProducts();
+        loadAllData();
         setUploadPhotoArray([]);
         setData(initialState);
         router.push(`/alert?messageId=alert_create_product_success`);

@@ -8,9 +8,10 @@ export default async function EditProduct({ params }) {
     const product = await getProductById(params.id)
 
 
+
     return (
         <Modal>
-            <EditProductForm product={product[0]}  />
+            <EditProductForm product={product && product}  />
         </Modal>
     )
 }

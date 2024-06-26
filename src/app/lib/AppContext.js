@@ -145,7 +145,8 @@ export const AppProvider = ({ children }) => {
         loadSizes,
         loadSubcategories,
         loadNovelties,
-        loadOutlets
+        loadOutlets,
+        loadAllData
       }}
     >
       {children}
