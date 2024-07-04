@@ -105,6 +105,21 @@ export  async function getProductsBySubcategory (id) {
     return await fetchApiData(url);
   };
 
+  export  async function getOrders () {
+    const url = process.env.NEXT_PUBLIC_API_URL + "orders/all";
+    return await fetchApiData(url);
+  };
+
+  export  async function getOrdersById (id) {
+    const url = process.env.NEXT_PUBLIC_API_URL + "orders/" + id;
+    return await fetchApiData(url);
+  };
+
+  export  async function getcustomers () {
+    const url = process.env.NEXT_PUBLIC_API_URL + "customers/all";
+    return await fetchApiData(url);
+  };
+
   export  async function login ( formData ) {
     const body = {
      email: formData.email,
