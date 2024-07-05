@@ -7,11 +7,46 @@ const nextConfig = {
   async headers() {
     return [
       {
-        source: '/:path*', // Aplicar a todas las rutas
+        // Deshabilitar la caché para todas las rutas
+        source: '/:path*',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'no-store, max-age=0', // Deshabilitar caché
+            value: 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+          {
+            key: 'Expires',
+            value: '0',
+          },
+          {
+            key: 'Surrogate-Control',
+            value: 'no-store',
+          },
+        ],
+      },
+      {
+        // Deshabilitar la caché para imágenes servidas por Next.js
+        source: '/_next/image',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'no-store, no-cache, must-revalidate, proxy-revalidate',
+          },
+          {
+            key: 'Pragma',
+            value: 'no-cache',
+          },
+          {
+            key: 'Expires',
+            value: '0',
+          },
+          {
+            key: 'Surrogate-Control',
+            value: 'no-store',
           },
         ],
       },
