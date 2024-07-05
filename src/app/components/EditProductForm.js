@@ -89,13 +89,13 @@ export default function EditProductForm({ product }) {
   };
 
   const handleDeleteImage = (index) => {
-    console.log(imagesArray)
+    console.log(productImages)
     setProductImages((prevImages) => prevImages.filter((_, i) => i !== index));
     setUploadPhotoArray((prevUrls) => prevUrls.filter((_, i) => i !== index));
   };
 
   const onUpdateProduct = async () => {
-    console.log(imagesArray)
+    console.log(productImages)
 
     try {
       const imagesArray = productImages.map((image) => image.url);
