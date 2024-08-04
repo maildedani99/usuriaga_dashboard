@@ -4,18 +4,15 @@ import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import ClientImage from "./ClientImage";
-import { getProducts } from "../lib/data";
-import { useContext } from "react";
-import { AppContext } from "../lib/AppContext";
+import Spinner from "./Spinner";
 
 
 
-export default function ProductsTable() {
+export default function ProductsTable({ products }) {
 
-  const { products } = useContext(AppContext);
 
   return (
-    products &&
+
     <div>
       <div className="flex justify-end mt-4 mb-4">
         <Link href="/addProduct" className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300">
@@ -50,7 +47,7 @@ export default function ProductsTable() {
           </tr>
         </thead>
         <tbody>
-          {products &&
+          {products ?
             products.map((product) => (
               <tr
                 key={product.id}
@@ -87,7 +84,11 @@ export default function ProductsTable() {
                   </Link>
                 </td>
               </tr>
-            ))}
+            ))
+            :
+            
+            <Spinner  />
+          }
         </tbody>
       </table>
     </div>

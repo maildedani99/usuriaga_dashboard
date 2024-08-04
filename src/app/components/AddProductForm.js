@@ -10,11 +10,17 @@ import CancelButton from "./CancelButton";
 import AcceptButton from "./AceptButton";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Image from "next/image";
+import Error from "./Error";
+import useSWR from "swr";
+import { fetcher } from "../utils/fetcher";
 
 export default function AddProductForm() {
   const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
-  const { subcategories, loadAllData } = useContext(AppContext);
+  
   const { auth } = useContext(AuthContext);
+
+  const { data : subcategories, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}subcategories/all`, fetcher);
+
 
   const router = useRouter();
 
@@ -28,10 +34,12 @@ export default function AddProductForm() {
     outlet: false,
   };
 
-  const [data, setData] = useState(initialState);
   const [productImages, setProductImages] = useState([]);
   const [checkedList, setCheckList] = useState({});
   const [statusMessage, setStatusMessage] = useState("");
+  const [data, setData] = useState(initialState);
+  const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const script = document.createElement("script");
@@ -57,6 +65,7 @@ export default function AddProductForm() {
   };
 
   const openUploadWidget = () => {
+    setLoading(true);
     if (window.cloudinary) {
       window.cloudinary.openUploadWidget(
         {
@@ -68,6 +77,7 @@ export default function AddProductForm() {
           maxImageFileSize: 5000000, // 5MB
         },
         (error, result) => {
+          setLoading(false);
           if (!error && result && result.event === "success") {
             const newImage = { url: result.info.secure_url };
             setProductImages((prevImages) => [...prevImages, newImage]);
@@ -100,7 +110,6 @@ export default function AddProductForm() {
       const checkedListArray = selectTrue();
       const resCreateProduct = await createProduct(data, checkedListArray, uploadPhotoArray, auth.token);
       if (resCreateProduct.success) {
-        loadAllData();
         setUploadPhotoArray([]);
         setData(initialState);
         router.push(`/alert?messageId=alert_create_product_success`);
@@ -229,13 +238,16 @@ export default function AddProductForm() {
         ))}
       </div>
       <div className="flex w-full mt-4">
-        <button
-          onClick={openUploadWidget}
-          type="button"
-          className="inline-flex items-center px-8 py-2.5 mt-4 sm:mt-6 text-md font-medium text-center text-white rounded-lg focus:ring-4 mx-auto bg-blue-700 hover:bg-blue-800 focus:ring-blue-200 dark:focus:ring-blue-900"
-        >
-          Subir imagen
-        </button>
+  <button
+    onClick={openUploadWidget}
+    type="button"
+    className={`inline-flex items-center px-8 py-2.5 mt-4 sm:mt-6 text-md font-medium text-center text-white rounded-lg focus:ring-4 mx-auto ${
+      loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-blue-700 hover:bg-blue-800 focus:ring-blue-200 dark:focus:ring-blue-900'
+    }`}
+    disabled={loading}
+  >
+   Subir imagenes
+  </button>
         <button
           onClick={onCreateProduct}
           type="button"

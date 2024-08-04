@@ -1,13 +1,13 @@
+"use client"
 import Link from "next/link";
 import { CiEdit } from "react-icons/ci";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { getOrders, getcustomers } from "../lib/data";
 
 
-export default async function OrdersTable () {
+export default  function OrdersTable ({orders, customers}) {
 
-    const orders = await getOrders()
-    const customers = await getcustomers()
+
 
     const onFormattedDate = (created_at) => {
         const formattedDate = new Date(created_at).toLocaleDateString();

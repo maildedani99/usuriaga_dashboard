@@ -24,43 +24,7 @@ export const AppProvider = ({ children }) => {
   const [novelties, setNovelties] = useState([]);
   const [outlets, setOutlets] = useState([]);
 
-  const addItemToCart = (item, sizeSelectedOption, colorSelectedOption) => {
-    const matchItemIndex = cartItems.findIndex(
-      (object) => object.id === item.id && object.size.id === sizeSelectedOption.id && object.color === colorSelectedOption
-    );
   
-    if (matchItemIndex !== -1) {
-      cartItems[matchItemIndex].quantity += 1;
-      setCartItems([...cartItems]);
-    } else {
-      const newItem = { ...item, quantity: 1, size: sizeSelectedOption, color: colorSelectedOption };
-      setCartItems([...cartItems, newItem]);
-    }
-  };
-
-  const addQuantity = (item) => {
-    const resItemMatch = cartItems.find(object => object.id === item.id & object.size.id === item.size.id);
-    resItemMatch.quantity = resItemMatch.quantity + 1;
-    setCartItems([...cartItems]);
-  };
-
-  const removeQuantity = (item) => {
-    const resItemMatch = cartItems.find(object => object.id === item.id & object.size.id === item.size.id);
-    resItemMatch.quantity = resItemMatch.quantity - 1;
-    setCartItems([...cartItems]);
-  };
-
-  const removeItemFromCart = (item) => {
-    const updatedCartItems = cartItems.filter((cartItem) => {
-      return (
-        cartItem.id !== item.id ||
-        cartItem.size.id !== item.size.id ||
-        cartItem.color !== item.color
-      );
-    });
-  
-    setCartItems(updatedCartItems);
-  };
 
   const loadColors = async () => {
     const resColors = await getColors();
@@ -106,20 +70,11 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    loadAllData();
-  }, []);
+
 
   return (
     <AppContext.Provider
       value={{
-        cartItems,
-        addItemToCart,
-        removeItemFromCart,
-        addQuantity,
-        sizeSelectedOption,
-        setSizeSelectedOption,
-        removeQuantity,
         searchBarIsOpen,
         setSearchBarIsOpen,
         searchTerm,
