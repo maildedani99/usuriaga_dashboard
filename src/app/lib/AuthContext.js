@@ -1,6 +1,6 @@
-"use client"
+"use client";
+
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import Cookies from 'js-cookie';
 
 export const AuthContext = createContext(null);
 
@@ -8,27 +8,31 @@ export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({ token: null });
 
   useEffect(() => {
-    const token = Cookies.get('token');
+    // Inicializar el token desde la sesión del navegador
+    const token = sessionStorage.getItem('token');
     if (token) {
       setAuth({ token });
     }
   }, []);
 
-  const setCookie = (token) => {
-    console.log(token)
-    Cookies.set('token', token, { expires: 7, path: '/', secure: true, sameSite: 'Lax' });
+  const login = (token) => {
+    // Guardar el token en sessionStorage
+    sessionStorage.setItem('token', token);
     setAuth({ token });
   };
 
   const logout = () => {
-    Cookies.remove('token');
+    // Eliminar el token de sessionStorage
+    sessionStorage.removeItem('token');
     setAuth({ token: null });
   };
 
   return (
-    <AuthContext.Provider value={{ auth, setCookie, logout }}>
+    <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
+// Hook personalizado para usar el contexto de autenticación
+export const useAuth = () => useContext(AuthContext);

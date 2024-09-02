@@ -129,6 +129,12 @@ export  async function getProductsBySubcategory (id) {
    return fetchApiData(url, "POST", body);
  }
 
+ export  async function user ( token ) {
+   const url = process.env.NEXT_PUBLIC_API_URL +  "user";
+ return await fetchApiData(url, "POST", null, token);
+}
+ 
+
  export  async function createProduct (data, checkedListArray, uploadPhotoArray, token) {
   console.log(token)
   const body = {
