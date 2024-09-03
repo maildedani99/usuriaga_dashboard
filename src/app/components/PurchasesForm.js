@@ -4,10 +4,13 @@ import { AppContext } from "../lib/AppContext";
 import { stockCreate } from "../lib/data";
 import { AuthContext } from "../lib/AuthContext";
 import AddButton from "./AddButton";
+import { useRouter } from "next/navigation";
 
-export default function StockForm() {
-  const { sizes, colors, products } = useContext(AppContext);
+export default function PurchasesForm({ allData }) {
+  const { sizes, colors, products } = allData;
   const { auth } = useContext(AuthContext);
+  const router = useRouter();
+
 
   //const [colors, setColors] = useState([])
 
@@ -33,13 +36,28 @@ export default function StockForm() {
   };
 
   const onStockCreate = async () => {
-    const resStockCreate = await stockCreate(data, auth.token);
-    console.log(resStockCreate.status);
-    if (resStockCreate && resStockCreate.status === "success") {
-      resetForm();
+    try {
+      const resStockCreate = await stockCreate(data, auth.token);
+  
+      if (resStockCreate && resStockCreate.status === "success") {
+        console.log(resStockCreate);
+  
+        // Redirigir al usuario con el mensaje de éxito
+        router.push(`/alert?messageId=alert_create_stock_success&messageFetch=${encodeURIComponent(resStockCreate.message)}`);
+        
+        resetForm(); // Resetea el formulario después de la creación exitosa del stock
+      } else {
+        // Redirigir al usuario con el mensaje de error si la creación falló
+        router.push(`/alert?messageId=alert_create_stock_error&messageFetch=${encodeURIComponent(resStockCreate.message)}`);
+      }
+    } catch (error) {
+      // Manejo de errores, redirigir a una alerta con un mensaje de error genérico
+      console.error("Error al crear el stock:", error);
+  
+      router.push(`/alert?messageId=alert_create_stock_error&messageFetch=${encodeURIComponent("An unexpected error occurred.")}`);
     }
-    console.log(resStockCreate);
   };
+  
 
 
 

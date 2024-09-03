@@ -4,6 +4,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';  // Importa el router para la navegación
 import { useAuth } from '../lib/AuthContext';
+import Spinner from './Spinner';
 
 const AuthGuard = ({ children }) => {
   const { auth } = useAuth();
@@ -17,7 +18,7 @@ const AuthGuard = ({ children }) => {
 
   // Mostrar un loader o una pantalla en blanco mientras verifica la autenticación
   if (!auth.token) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   // Si está autenticado, renderiza el contenido de la página

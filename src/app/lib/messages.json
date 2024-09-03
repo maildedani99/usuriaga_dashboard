@@ -19,6 +19,14 @@
     "alert_edit_product_success": {
       "message": "El producto se ha actualizado con éxito",
       "type": "success"
+    },
+    "alert_create_stock_success": {
+      "message": "La compra se ha creado con éxito",
+      "type": "success"
+    },
+    "alert_create_stock_error": {
+      "message": "Se ha producido un error al crear la compra",
+      "type": "error"
     }
   }
   

@@ -9,9 +9,10 @@ import ProductsTable from "../../components/ProductsTable";
 import Error from "../../components/Error";
 import useSWR from "swr";
 import { fetcher } from "../../utils/fetcher";
+import Spinner from "../../components/Spinner";
 
 
-export default  function Products() {
+export default function Products() {
 
 
     const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}products/all`, fetcher);
@@ -20,7 +21,11 @@ export default  function Products() {
 
     return (
         <div className="flex flex-col mx-auto w-8/12 min-h-[80vh]">
-            <ProductsTable products={data} />
+            {data ?
+                <ProductsTable products={data} />
+                :
+                <Spinner />
+            }
         </div>
 
 
