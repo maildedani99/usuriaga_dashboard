@@ -3,12 +3,12 @@
 import React from "react";
 import { ThreeDots } from "react-loader-spinner";
 
-const Spinner = () => (
+const Spinner = ({size = 80}) => (
   <div className="flex">
     <div className=" mx-auto ">
       <ThreeDots
-        height={80}
-        width={80}
+        height={size}
+        width={size}
         color="#dac895"
         secondaryColor="#f3f3f3"
         strokeWidth={2}

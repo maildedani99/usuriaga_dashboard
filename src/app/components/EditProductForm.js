@@ -10,13 +10,18 @@ import CancelButton from "./CancelButton";
 import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { isNovelty, isOutlet } from "../lib/helpers";
+import useSWR from "swr";
+import { fetcher } from "../utils/fetcher";
+import Spinner from "./Spinner";
 
-export default function EditProductForm({ product }) {
+export default function EditProductForm({ product, allData }) {
   const { uploadPhotoArray, setUploadPhotoArray } = useContext(UploadPhotoContext);
   const { auth } = useContext(AuthContext);
-  const { subcategories, outlets, novelties, loadAllData } = useContext(AppContext);
-
+  const { subcategories, outlets, novelties} = allData
   const router = useRouter();
+
+  const [loading, setLoading] = useState(true);  // Estado para manejar el spinner de carga
+
 
 
   const initialState = {
@@ -211,14 +216,20 @@ export default function EditProductForm({ product }) {
         </div>
       </div>
       <div className="grid gap-4 sm:grid-cols-2 sm:gap-6 px-8">
-        {productImages.map((image, index) => (
+        { productImages.map((image, index) => (
           <div key={index} className="relative">
+              {loading && (
+              <div className="flex justify-center items-center w-[100px] h-[150px]">
+                <Spinner size={40} />
+              </div>
+            )}
             <Image
               src={image.url}
               width={100}
               height={150}
               alt="imagen del producto"
               className="mx-auto"
+              onLoadingComplete={() => setLoading(false)}  // Oculta el spinner cuando la imagen se ha cargado
             />
             <button
               onClick={() => handleDeleteImage(index)}
@@ -227,7 +238,8 @@ export default function EditProductForm({ product }) {
               <RiDeleteBin6Line className="mx-auto" />
             </button>
           </div>
-        ))}
+        ))
+      }
       </div>
       <div className="flex w-full mt-4">
         <button
