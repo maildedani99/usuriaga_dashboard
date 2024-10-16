@@ -111,6 +111,7 @@ export default function AddProductForm() {
       const resCreateProduct = await createProduct(data, checkedListArray, uploadPhotoArray, auth.token);
       if (resCreateProduct.success) {
         setUploadPhotoArray([]);
+        setProductImages([]); 
         setData(initialState);
         router.push(`/alert?messageId=alert_create_product_success`);
       }
