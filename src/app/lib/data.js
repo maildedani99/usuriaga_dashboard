@@ -18,7 +18,7 @@ const fetchApiData = async (url, method = "GET", body = null, token = null) => {
     body: body ? JSON.stringify(body) : null,
     redirect: 'follow',
   };
-
+  console.log("Enviando body:", options.body); // Añade este log
   try {
     const response = await fetch(url, options);
     if (!response.ok) {
@@ -97,6 +97,14 @@ export  async function getProductsBySubcategory (id) {
   export  async function getProductsStock () {
     const url = process.env.NEXT_PUBLIC_API_URL + "products/allStock";
     return await fetchApiData(url);
+  };
+
+
+  export  async function getProductsByIds (productsIds) {
+    const url = process.env.NEXT_PUBLIC_API_URL + "products/getByIds";
+     const body = { ids: productsIds };
+    console.log(body)
+    return await fetchApiData(url, "POST", body);
   };
 
 

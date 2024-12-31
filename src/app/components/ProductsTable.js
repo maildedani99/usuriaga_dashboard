@@ -37,6 +37,8 @@ export default function ProductsTable({ products }) {
             </th>
             <th scope="col" className="px-6 py-3 text-center">
               Subcategoria
+            </th> <th scope="col" className="px-6 py-3 text-center">
+              id
             </th>
             <th scope="col" className="px-6 py-3 text-center">
               Editar
@@ -73,6 +75,8 @@ export default function ProductsTable({ products }) {
                 <td className="px-6 py-4 text-center">{product.price}</td>
                 <td className="px-6 py-4 text-center">{product.reduced_price}</td>
                 <td className="px-6 py-4 text-center">{product.subcategory}</td>
+                <td className="px-6 py-4 text-center">{product.id}</td>
+
                 <td className="px-6 py-4 text-center">
                   <Link href={`/editProduct/${product.id}`}>
                     <CiEdit color="black" className="mx-auto" />
