@@ -74,7 +74,7 @@ export default function AddProductForm() {
           multiple: true,
           resourceType: 'image',
           clientAllowedFormats: ['png', 'jpg', 'jpeg'],
-          maxImageFileSize: 5000000, // 5MB
+          maxImageFileSize: 10000000, // 10MB
         },
         (error, result) => {
           setLoading(false);
